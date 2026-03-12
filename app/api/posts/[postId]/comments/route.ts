@@ -6,6 +6,8 @@ import { validateContent } from "@/lib/sanitize";
 import { checkRateLimit } from "@/lib/rateLimit";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(
   request: NextRequest,
   { params }: { params: { postId: string } }

@@ -1,17 +1,21 @@
 // app/layout.tsx
-import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+import type { Metadata, Viewport } from "next";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Women Community - Safe Anonymous Space",
   description: "A safe, anonymous community space for women to share thoughts, ask questions, and support each other.",
   keywords: ["community", "women", "anonymous", "support", "safe"],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   icons: {
     icon: "/favicon.ico",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -26,9 +30,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#e89d6f" />
       </head>
       <body>
-        <SessionProvider>
-          {children}
-        </SessionProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { checkRateLimit } from "@/lib/rateLimit";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const VALID_REACTION_TYPES = ["SUPPORT", "AGREE", "HUG", "COMMENT"];
 
 export async function POST(request: NextRequest) {
