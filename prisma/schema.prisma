@@ -1,0 +1,125 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// User table - Authentication only
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Allowed emails for access control
+model AllowedEmail {
+  id    String @id @default(cuid())
+  email String @unique @db.VarChar(255)
+
+  @@map("allowed_emails")
+}
+
+// Posts - COMPLETELY ANONYMOUS (no user reference)
+model Post {
+  id        String    @id @default(uuid())
+  content   String    @db.Text
+  category  String    @default("General") // Advice, Workplace, Mental Health, General
+  isReported Boolean  @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  comments  Comment[]
+  reactions Reaction[]
+  report    ReportedPost?
+
+  @@index([createdAt])
+  @@index([isReported])
+  @@map("posts")
+}
+
+// Comments - COMPLETELY ANONYMOUS
+model Comment {
+  id        String   @id @default(uuid())
+  content   String   @db.Text
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  reactions Reaction[]
+
+  @@index([postId])
+  @@index([createdAt])
+  @@map("comments")
+}
+
+// Reactions - Anonymous reactions to posts and comments
+model Reaction {
+  id        String   @id @default(cuid())
+  type      String   // SUPPORT, AGREE, HUG, COMMENT
+  postId    String?
+  commentId String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([commentId])
+  @@map("reactions")
+}
+
+// Reported posts for moderation
+model ReportedPost {
+  id        String   @id @default(cuid())
+  postId    String   @unique
+  reason    String   @db.Text
+  reviewed  Boolean  @default(false)
+  action    String?  // REMOVED, APPROVED, DISMISSED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([reviewed])
+  @@index([postId])
+  @@map("reported_posts")
+}
+
+// Rate limiting - keyed by session ID (hashed), not user
+model RateLimit {
+  id        String   @id @default(cuid())
+  sessionId String   // Hashed session ID
+  action    String   // POST_CREATE, COMMENT_CREATE
+  count     Int      @default(1)
+  resetAt   DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([sessionId, action])
+  @@index([resetAt])
+  @@map("rate_limits")
+}
+
+// Audit log - tracks moderation actions, not user posts
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String   // POST_REMOVED, POST_REPORTED, etc
+  postId    String?
+  reason    String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("audit_logs")
+}

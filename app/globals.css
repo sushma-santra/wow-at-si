@@ -1,0 +1,216 @@
+/* app/globals.css */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Lora", serif;
+
+  /* Warm color palette */
+  --color-primary: #e89d6f;
+  --color-primary-dark: #d98b5e;
+  --color-warm: #f4c9aa;
+  --color-soft-bg: #fdf8f6;
+  --color-border: #f0e4db;
+  --color-text: #4a3f38;
+  --color-text-muted: #7d6f67;
+  --color-success: #86c06c;
+  --color-warning: #f5a623;
+  --color-error: #d65961;
+}
+
+* {
+  @apply font-sans;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-soft-50 text-gray-800;
+  font-family: var(--font-sans);
+  background: linear-gradient(135deg, #fdf8f6 0%, #fceee6 100%);
+  min-height: 100vh;
+}
+
+/* Smooth page transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Beautiful scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1e8e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a898;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c99080;
+}
+
+/* Focus states for accessibility */
+:focus-visible {
+  @apply outline-none ring-2 ring-warm-400 ring-offset-2 ring-offset-soft-50;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  @apply outline-none ring-2 ring-warm-400 ring-offset-2 ring-offset-soft-50;
+}
+
+/* Smooth transitions */
+a,
+button,
+input,
+textarea {
+  @apply transition-all duration-200;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  @apply font-semibold text-gray-900;
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-3xl;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+/* Micro interactions */
+button {
+  @apply relative overflow-hidden;
+}
+
+button::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full bg-white opacity-0 transition-opacity duration-300;
+  pointer-events: none;
+}
+
+button:hover::before {
+  @apply opacity-10;
+}
+
+button:active::before {
+  @apply opacity-20;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-warm-100;
+}
+
+.card-lg {
+  @apply card p-6 sm:p-8;
+}
+
+.card-md {
+  @apply card p-4 sm:p-6;
+}
+
+.card-sm {
+  @apply card p-3 sm:p-4;
+}
+
+/* Button styles */
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2.5 font-medium rounded-lg transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-warm-400;
+}
+
+.btn-primary {
+  @apply btn bg-warm-500 text-white hover:bg-warm-600 active:bg-warm-700 shadow-sm hover:shadow-md;
+}
+
+.btn-secondary {
+  @apply btn bg-warm-100 text-warm-900 hover:bg-warm-200 active:bg-warm-300;
+}
+
+.btn-ghost {
+  @apply btn text-warm-600 hover:bg-warm-50 active:bg-warm-100;
+}
+
+.btn-icon {
+  @apply btn w-10 h-10 p-0 flex items-center justify-center;
+}
+
+/* Input styles */
+.input-field {
+  @apply w-full px-4 py-3 rounded-lg border border-warm-200 bg-white text-gray-900 placeholder-gray-400 focus-visible:ring-2 focus-visible:ring-warm-400 focus-visible:border-warm-400 transition-all duration-200;
+}
+
+.input-field::placeholder {
+  @apply text-gray-400;
+}
+
+/* Badge styles */
+.badge {
+  @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium;
+}
+
+.badge-primary {
+  @apply badge bg-warm-100 text-warm-700;
+}
+
+.badge-secondary {
+  @apply badge bg-gray-100 text-gray-700;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive text sizing */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "buildCommand": "npm run build && npm run prisma:generate",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "projectSettings": {
+    "sourceFilesOutsideRootDirectory": true,
+    "nodeVersion": "18.x"
+  },
+  "env": {
+    "DATABASE_URL": {
+      "description": "PostgreSQL database connection string"
+    },
+    "NEXTAUTH_SECRET": {
+      "description": "Secret key for NextAuth. Generate with: openssl rand -base64 32"
+    },
+    "NEXTAUTH_URL": {
+      "description": "URL of your application (e.g., https://your-app.vercel.app)"
+    },
+    "GOOGLE_CLIENT_ID": {
+      "description": "Google OAuth Client ID from Google Cloud Console"
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "description": "Google OAuth Client Secret from Google Cloud Console"
+    }
+  }
+}
