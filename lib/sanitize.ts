@@ -1,22 +1,23 @@
 // lib/sanitize.ts
-import DOMPurify from "isomorphic-dompurify";
-import sanitizeHtml from "sanitize-html";
+// Plain-text sanitizer — no HTML allowed in posts or comments.
+// Avoids isomorphic-dompurify / jsdom which break in Vercel's CJS runtime
+// due to ESM-only transitive dependencies.
 
 export function sanitizeContent(content: string): string {
-  // First pass: sanitize HTML
-  const cleaned = sanitizeHtml(content, {
-    allowedTags: ["b", "i", "em", "strong", "p", "br", "ul", "ol", "li", "a"],
-    allowedAttributes: {
-      a: ["href"],
-    },
-    allowedSchemes: ["http", "https"],
-    disallowedTagsMode: "discard",
-  });
+  // Strip all HTML tags
+  const noHtml = content.replace(/<[^>]*>/g, "");
 
-  // Second pass: DOMPurify for XSS prevention
-  const purified = DOMPurify.sanitize(cleaned, { ALLOWED_TAGS: [] });
+  // Decode common HTML entities to their text equivalents
+  const decoded = noHtml
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#039;/gi, "'")
+    .replace(/&nbsp;/gi, " ");
 
-  return purified;
+  // Re-escape < and > so the output is always safe plain text
+  return decoded.replace(/</g, "&lt;").replace(/>/g, "&gt;").trim();
 }
 
 export function validateContent(content: string): {

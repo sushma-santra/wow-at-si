@@ -45,11 +45,10 @@ export async function POST(request: NextRequest) {
       transformHeader: (h) => h.toLowerCase().trim(),
     });
 
-    // Only fatal if we got zero rows AND there are errors
-    const fatalErrors = result.errors.filter((e) => e.type === "Delimiter" || e.type === "Abort");
-    if (fatalErrors.length > 0 && (result.data as any[]).length === 0) {
+    // Only fail if we got no rows at all (PapaParse warnings are non-fatal)
+    if ((result.data as any[]).length === 0) {
       return NextResponse.json(
-        { error: "Failed to parse CSV", details: fatalErrors },
+        { error: "Failed to parse CSV: no rows found" },
         { status: 400 }
       );
     }
