@@ -4,9 +4,9 @@ import Providers from "@/components/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Women Community - Safe Anonymous Space",
-  description: "A safe, anonymous community space for women to share thoughts, ask questions, and support each other.",
-  keywords: ["community", "women", "anonymous", "support", "safe"],
+  title: "World of Women @ SI",
+  description: "A safe, anonymous community space for women at Sportz Interactive to share thoughts, ask questions, and support each other.",
+  keywords: ["community", "women", "anonymous", "support", "safe", "sportz interactive"],
   robots: "index, follow",
   icons: {
     icon: "/favicon.ico",

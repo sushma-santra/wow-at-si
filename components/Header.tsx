@@ -18,7 +18,7 @@ export default function Header() {
             <span className="text-xl">🌸</span>
           </div>
           <span className="hidden sm:inline font-serif font-semibold text-gray-900">
-            Women Community
+            World of Women @ SI
           </span>
         </Link>
 

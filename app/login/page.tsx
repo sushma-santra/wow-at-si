@@ -49,7 +49,7 @@ function LoginForm() {
             <span className="text-3xl">🌸</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-2">
-            Women Community
+            World of Women @ SI
           </h1>
           <p className="text-gray-600 text-base sm:text-lg">
             A safe, anonymous space for support and connection
