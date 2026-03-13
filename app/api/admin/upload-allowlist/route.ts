@@ -34,19 +34,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Read file content
-    const text = await file.text();
+    // Read file content — strip BOM and normalise line endings
+    const raw = await file.text();
+    const text = raw.replace(/^\uFEFF/, "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
-    // Parse CSV
+    // Parse CSV — treat PapaParse warnings as non-fatal
     const result = Papa.parse(text, {
       header: true,
       skipEmptyLines: true,
       transformHeader: (h) => h.toLowerCase().trim(),
     });
 
-    if (result.errors.length > 0) {
+    // Only fatal if we got zero rows AND there are errors
+    const fatalErrors = result.errors.filter((e) => e.type === "Delimiter" || e.type === "Abort");
+    if (fatalErrors.length > 0 && (result.data as any[]).length === 0) {
       return NextResponse.json(
-        { error: "Failed to parse CSV", details: result.errors },
+        { error: "Failed to parse CSV", details: fatalErrors },
         { status: 400 }
       );
     }
