@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
-        <meta name="theme-color" content="#e89d6f" />
+        <meta name="theme-color" content="#5F52FF" />
       </head>
       <body>
         <Providers>{children}</Providers>

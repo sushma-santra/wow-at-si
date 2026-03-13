@@ -4,6 +4,7 @@
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
+import Image from "next/image";
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -45,8 +46,8 @@ function LoginForm() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-warm-200 mb-4">
-            <span className="text-3xl">🌸</span>
+          <div className="inline-flex items-center justify-center mb-5">
+            <Image src="/si-logo.svg" alt="SI Logo" width={100} height={50} priority />
           </div>
           <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-2">
             World of Women @ SI
@@ -146,8 +147,8 @@ export default function LoginPage() {
       fallback={
         <div className="min-h-screen bg-gradient-to-br from-soft-50 via-warm-50 to-soft-100 flex items-center justify-center">
           <div className="text-center">
-            <div className="inline-flex justify-center w-16 h-16 rounded-full bg-warm-200 mb-4 animate-pulse">
-              <span className="text-3xl">🌸</span>
+            <div className="inline-flex justify-center mb-4 animate-pulse">
+              <Image src="/si-logo.svg" alt="SI Logo" width={80} height={40} />
             </div>
             <p className="text-gray-600">Loading...</p>
           </div>

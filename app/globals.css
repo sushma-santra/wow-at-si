@@ -9,14 +9,14 @@
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-serif: "Lora", serif;
 
-  /* Warm color palette */
-  --color-primary: #e89d6f;
-  --color-primary-dark: #d98b5e;
-  --color-warm: #f4c9aa;
-  --color-soft-bg: #fdf8f6;
-  --color-border: #f0e4db;
-  --color-text: #4a3f38;
-  --color-text-muted: #7d6f67;
+  /* SI purple palette */
+  --color-primary: #5F52FF;
+  --color-primary-dark: #4a3fe0;
+  --color-warm: #bfb8fb;
+  --color-soft-bg: #f5f4ff;
+  --color-border: #dcd8ff;
+  --color-text: #1e1a4a;
+  --color-text-muted: #5b5690;
   --color-success: #86c06c;
   --color-warning: #f5a623;
   --color-error: #d65961;
@@ -33,7 +33,7 @@ html {
 body {
   @apply bg-soft-50 text-gray-800;
   font-family: var(--font-sans);
-  background: linear-gradient(135deg, #fdf8f6 0%, #fceee6 100%);
+  background: linear-gradient(135deg, #f5f4ff 0%, #edeaff 100%);
   min-height: 100vh;
 }
 
@@ -60,16 +60,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1e8e0;
+  background: #edeaff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4a898;
+  background: #a093f8;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c99080;
+  background: #5F52FF;
 }
 
 /* Focus states for accessibility */

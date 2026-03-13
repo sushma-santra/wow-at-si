@@ -3,6 +3,7 @@
 
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Header() {
@@ -13,11 +14,9 @@ export default function Header() {
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-warm-200">
       <div className="max-w-2xl mx-auto px-4 py-4 sm:py-5 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-warm-200">
-            <span className="text-xl">🌸</span>
-          </div>
-          <span className="hidden sm:inline font-serif font-semibold text-gray-900">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <Image src="/si-logo.svg" alt="SI Logo" width={56} height={28} priority />
+          <span className="hidden sm:inline font-serif font-semibold text-gray-900 text-lg">
             World of Women @ SI
           </span>
         </Link>
