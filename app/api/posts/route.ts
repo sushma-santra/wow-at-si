@@ -68,8 +68,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Get session ID from cookie for rate limiting
-    const sessionId = request.cookies.get("next-auth.session-token")?.value;
+    // Get a stable identifier for rate limiting.
+    // NextAuth uses different cookie names in dev (HTTP) vs prod (HTTPS).
+    const sessionId =
+      request.cookies.get("__Secure-next-auth.session-token")?.value ||
+      request.cookies.get("next-auth.session-token")?.value ||
+      session.user?.email ||
+      null;
+
     if (!sessionId) {
       return NextResponse.json(
         { error: "No session found" },
